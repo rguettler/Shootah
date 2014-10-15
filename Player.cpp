@@ -36,7 +36,7 @@ void Player::SetExtremes(unsigned int a_leftEx, unsigned int a_rightEx, unsigned
 }
 
 
-void Player::VerticalMovement(float a_timeStep, float a_ySpeed)
+void Player::Movement(float a_timeStep,float a_xSpeed, float a_ySpeed)
 {
 	if (IsKeyDown(moveUpKey))
 	{
@@ -50,9 +50,25 @@ void Player::VerticalMovement(float a_timeStep, float a_ySpeed)
 	if (IsKeyDown(moveDownKey))
 	{
 		y -= a_timeStep * a_ySpeed;
-		if (y < (bottomMovementExtreme + height*.5))
+		if (y < (bottomMovementExtreme + height*.25))
 		{
-			y = (bottomMovementExtreme + height*.5);
+			y = (bottomMovementExtreme + height*.25);
+		}
+	}
+	if (IsKeyDown(moveLeftKey))
+	{
+		x -= a_timeStep* a_xSpeed;
+		if (x < (leftMovementExtreme + width*.5))
+		{
+			x = (leftMovementExtreme + width*.5);
+		}
+	}
+	if (IsKeyDown(moveRightKey))
+	{
+		x += a_timeStep* a_xSpeed;
+		if (x > (rightMovementExtreme - width*.5))
+		{
+			x = rightMovementExtreme - width*.5;
 		}
 	}
 }
