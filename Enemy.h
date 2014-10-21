@@ -11,7 +11,8 @@ public:
 	unsigned int spriteID;
 	void SetSize(float a_width, float a_height);
 	void SetPosition(float a_x, float a_y);
-	void Movement(float a_timeStep, float a_ySpeed, float a_xSpeed);
+	void Movement(float a_timeStep, float a_xSpeed, float a_ySpeed);
+	void SetSpeed(float a_xSpeed,float a_ySpeed);
 	Enemy();
 	~Enemy();
 };
