@@ -27,6 +27,7 @@ int main(int argc, char* argv[])
 		DrawSprite(enemy.spriteID);
 		MoveSprite(enemy.spriteID, enemy.x, enemy.y);
 		player.Movement(deltaTime, 750, 500);
+		enemy.Movement(deltaTime, 500, 500);
 		
 	} while (FrameworkUpdate() == false);
 	
@@ -47,11 +48,12 @@ void Startup()
 	player.spriteID = CreateSprite(playerSprite, player.width, player.height, true);
 	player.SetPosition(200, 400);
 	player.SetExtremes(0, screenWidth, screenHeight, 0);
-	player.SetMovementKeys('A', 'D', 'W', 'S');
+	player.SetGameplayKeys('A', 'D', 'W', 'S');
 
 	enemy.SetSize(32, 32);
 	enemy.spriteID = CreateSprite(enemySprite, enemy.width, enemy.height, true);
 	enemy.SetPosition(200, 600);
+	enemy.SetExtremes(0, screenWidth, screenHeight, 0);
 
 
 }

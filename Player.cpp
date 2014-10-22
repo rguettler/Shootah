@@ -19,7 +19,7 @@ void Player::SetPosition(float a_x, float a_y)
 	y = a_y;
 }
 
-void Player::SetMovementKeys(unsigned int a_moveLeft, unsigned int a_moveRight, unsigned int a_moveUp, unsigned int a_moveDown)
+void Player::SetGameplayKeys(unsigned int a_moveLeft, unsigned int a_moveRight, unsigned int a_moveUp, unsigned int a_moveDown)
 {
 	moveLeftKey = a_moveLeft;
 	moveRightKey = a_moveRight;
