@@ -3,6 +3,8 @@
 #include "Enemy.h"
 #include <iostream>
 using namespace std;
+Player player;
+Enemy enemy;
 
 const int screenWidth = 600;
 const int screenHeight = 800;
@@ -10,24 +12,36 @@ const int screenHeight = 800;
 const char* screenTitle = "WING FIGHTERS ULTRA MAX";
 const char* playerSprite = "./images/player2.png";
 const char* enemySprite = "./images/enemy.png";
-void Startup();
+const char* loss = "Oh noes";
 
-Player player;
-Enemy enemy;
+void Startup();
+void Collision();
+
+
+enum GAMESTATES
+{
+	main_menu,
+	gameplay,
+	gameloss,
+};
 
 int main(int argc, char* argv[])
 {
 	Startup();
 	float deltaTime = GetDeltaTime();
+	GAMESTATES currentState = main_menu;
+	
+	
 	do
 	{
 		ClearScreen();
 		DrawSprite(player.spriteID);
-		MoveSprite(player.spriteID,player.x, player.y);
 		DrawSprite(enemy.spriteID);
 		MoveSprite(enemy.spriteID, enemy.x, enemy.y);
+		MoveSprite(player.spriteID,player.x, player.y);
 		player.Movement(deltaTime, 750, 500);
 		enemy.Movement(deltaTime, 500, 500);
+		Collision();
 		
 	} while (FrameworkUpdate() == false);
 	
@@ -54,6 +68,20 @@ void Startup()
 	enemy.spriteID = CreateSprite(enemySprite, enemy.width, enemy.height, true);
 	enemy.SetPosition(200, 600);
 	enemy.SetExtremes(0, screenWidth, screenHeight, 0);
+
+
+}
+
+void Collision()
+{
+	float a_x = player.x - enemy.x;
+	float a_y = player.y - enemy.y;
+	int radii = player.radius + enemy.radius;
+	
+	if ((a_x * a_x) + (a_y * a_y) < radii * radii)
+	{
+		DrawString(loss, screenWidth *.4f, screenHeight * .5f);
+	}
 
 
 }

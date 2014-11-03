@@ -3,6 +3,7 @@ class Enemy
 {
 public:
 	bool alive;
+	int radius = 16;
 	float x;
 	float y;
 	float xSpeed;

@@ -3,6 +3,7 @@ class Player
 {
 public:
 	bool alive;
+	int radius = 32;
 	float x;
 	float y;
 	float xSpeed;
