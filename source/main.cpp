@@ -12,11 +12,13 @@ const int screenHeight = 800;
 const char* screenTitle = "WING FIGHTERS ULTRA MAX";
 const char* playerSprite = "./images/player2.png";
 const char* enemySprite = "./images/enemy.png";
-const char* loss = "Oh noes";
+const char* loss = "FAILURE";
+const char* tryAgain = "Press SPACE to try again";
 
 void Startup();
 void Collision();
-
+void UpdateMainMenu();
+void UpdateGameplay(float a_deltaTime);
 
 enum GAMESTATES
 {
@@ -24,24 +26,47 @@ enum GAMESTATES
 	gameplay,
 	gameloss,
 };
-
+GAMESTATES currentState = main_menu;
 int main(int argc, char* argv[])
 {
 	Startup();
 	float deltaTime = GetDeltaTime();
-	GAMESTATES currentState = main_menu;
+	
 	
 	
 	do
 	{
+		
 		ClearScreen();
-		DrawSprite(player.spriteID);
-		DrawSprite(enemy.spriteID);
-		MoveSprite(enemy.spriteID, enemy.x, enemy.y);
-		MoveSprite(player.spriteID,player.x, player.y);
-		player.Movement(deltaTime, 750, 500);
-		enemy.Movement(deltaTime, 500, 500);
-		Collision();
+
+		switch (currentState)
+		{
+		case main_menu:
+			UpdateMainMenu();
+			if (IsKeyDown(32))
+			{	
+				currentState = gameplay;
+			}
+			break;
+		case gameplay:
+			UpdateGameplay(deltaTime);
+			Collision();
+			break;
+		case gameloss:
+			SetBackgroundColour(SColour(00, 67, 171, 50));
+			DrawString(loss, screenWidth*.4f, screenHeight*.75f);
+			DrawString(tryAgain, screenWidth*.4f, screenHeight*.5f);
+			if (IsKeyDown(257))
+			{
+				currentState = main_menu;
+			}
+			break;
+
+			
+		default:
+			break;
+		}
+		
 		
 	} while (FrameworkUpdate() == false);
 	
@@ -56,11 +81,11 @@ int main(int argc, char* argv[])
 void Startup()
 {
 	Initialise(screenWidth,screenHeight,false,screenTitle);
-	SetBackgroundColour(SColour(00, 67, 171, 50));
+	
 	
 	player.SetSize(64, 64);
 	player.spriteID = CreateSprite(playerSprite, player.width, player.height, true);
-	player.SetPosition(200, 400);
+	player.SetPosition(300, 400);
 	player.SetExtremes(0, screenWidth, screenHeight, 0);
 	player.SetGameplayKeys('A', 'D', 'W', 'S');
 
@@ -80,8 +105,28 @@ void Collision()
 	
 	if ((a_x * a_x) + (a_y * a_y) < radii * radii)
 	{
-		DrawString(loss, screenWidth *.4f, screenHeight * .5f);
+		currentState = gameloss;
+		player.SetPosition(300, 400);
 	}
 
 
+}
+
+void UpdateMainMenu()
+{
+	
+	SetBackgroundColour(SColour(00, 00, 00, 40));
+	DrawString(screenTitle, screenWidth*.4f, screenHeight*.75f);
+}
+
+void UpdateGameplay(float a_deltaTime)
+{
+	SetBackgroundColour(SColour(00, 67, 171, 50));
+	DrawSprite(player.spriteID);
+	DrawSprite(enemy.spriteID);
+	MoveSprite(enemy.spriteID, enemy.x, enemy.y);
+	MoveSprite(player.spriteID,player.x, player.y);
+	player.Movement(a_deltaTime, 750, 500);
+	enemy.Movement(a_deltaTime, 500, 500);
+	
 }
