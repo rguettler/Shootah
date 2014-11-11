@@ -2,7 +2,7 @@
 class Enemy
 {
 public:
-	bool alive;
+	bool alive = true;
 	int radius = 16;
 	float x;
 	float y;
@@ -20,6 +20,8 @@ public:
 	void Movement(float a_timeStep, float a_xSpeed, float a_ySpeed);
 	void SetSpeed(float a_xSpeed,float a_ySpeed);
 	void SetExtremes(int a_leftEx, int a_rightEx, int a_topEx, int a_bottomEx);
+	void Draw();
+	
 	Enemy();
 	~Enemy();
 };

@@ -15,10 +15,13 @@ const char* enemySprite = "./images/enemy.png";
 const char* loss = "FAILURE";
 const char* tryAgain = "Press SPACE to try again";
 
+float deltaTime;
+
 void Startup();
 void Collision();
 void UpdateMainMenu();
 void UpdateGameplay(float a_deltaTime);
+void GameInit();
 
 enum GAMESTATES
 {
@@ -56,6 +59,7 @@ int main(int argc, char* argv[])
 			SetBackgroundColour(SColour(00, 67, 171, 50));
 			DrawString(loss, screenWidth*.4f, screenHeight*.75f);
 			DrawString(tryAgain, screenWidth*.4f, screenHeight*.5f);
+			GameInit();
 			if (IsKeyDown(257))
 			{
 				currentState = main_menu;
@@ -114,7 +118,6 @@ void Collision()
 
 void UpdateMainMenu()
 {
-	
 	SetBackgroundColour(SColour(00, 00, 00, 40));
 	DrawString(screenTitle, screenWidth*.4f, screenHeight*.75f);
 }
@@ -123,10 +126,15 @@ void UpdateGameplay(float a_deltaTime)
 {
 	SetBackgroundColour(SColour(00, 67, 171, 50));
 	DrawSprite(player.spriteID);
-	DrawSprite(enemy.spriteID);
-	MoveSprite(enemy.spriteID, enemy.x, enemy.y);
+	enemy.Draw();
 	MoveSprite(player.spriteID,player.x, player.y);
 	player.Movement(a_deltaTime, 750, 500);
 	enemy.Movement(a_deltaTime, 500, 500);
 	
+}
+
+void GameInit()
+{
+	player.SetPosition(300, 400);
+	enemy.SetPosition(200, 600);
 }

@@ -1,5 +1,5 @@
 #include "Enemy.h"
-
+#include "AIE.h"
 
 Enemy::Enemy()
 {
@@ -40,6 +40,14 @@ void Enemy::Movement(float a_timeStep, float a_xSpeed, float a_ySpeed)
 	}
 }
 
+void Enemy::Draw()
+{
+	if (alive)
+	{
+		MoveSprite(spriteID, x, y);
+		DrawSprite(spriteID);
+	}
+}
 Enemy::~Enemy()
 {
 }
