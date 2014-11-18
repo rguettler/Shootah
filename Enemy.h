@@ -14,6 +14,7 @@ public:
 	int bottomExtreme;
 	int leftExtreme;
 	int rightExtreme;
+	int getRandom();
 	unsigned int spriteID;
 	void SetSize(float a_width, float a_height);
 	void SetPosition(float a_x, float a_y);

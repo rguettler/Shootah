@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "AIE.h"
+#include <stdlib.h>
 
 Enemy::Enemy()
 {
@@ -36,6 +37,8 @@ void Enemy::Movement(float a_timeStep, float a_xSpeed, float a_ySpeed)
 	y -= a_timeStep*a_ySpeed;
 	if (y < bottomExtreme + height*.5f)
 	{
+		
+		x = getRandom();
 		y = topExtreme;
 	}
 }
@@ -48,6 +51,12 @@ void Enemy::Draw()
 		DrawSprite(spriteID);
 	}
 }
+
+int Enemy::getRandom()
+{
+	return 10 + rand() % 590;
+}
+
 Enemy::~Enemy()
 {
 }

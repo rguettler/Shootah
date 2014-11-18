@@ -4,6 +4,7 @@
 #include <iostream>
 #include <time.h>
 using namespace std;
+
 Player player;
 Enemy enemy;
 Enemy enemy2;
@@ -90,7 +91,7 @@ void Startup()
 {
 	Initialise(screenWidth,screenHeight,false,screenTitle);
 	
-	
+	srand(time(NULL));
 
 	player.SetSize(64, 64);
 	player.spriteID = CreateSprite(playerSprite, player.width, player.height, true);
@@ -158,7 +159,7 @@ void UpdateGameplay(float a_deltaTime)
 
 void GameInit()
 {
-	
 	player.SetPosition(300, 400);
+	enemy2.SetPosition(400, 600);
 	enemy.SetPosition(200, 600);
 }
